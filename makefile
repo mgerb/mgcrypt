@@ -1,13 +1,16 @@
 linux:
-	GOOS=linux GOARCH=amd64 go build -o ./dist/linux/mgcrypt ./main.go
+	GOOS=linux GOARCH=amd64 go build -o ./dist/mgcrypt-linux ./main.go
 
 mac:
-	GOOS=darwin GOARCH=amd64 go build -o ./dist/mac/mgcrypt ./main.go
+	GOOS=darwin GOARCH=amd64 go build -o ./dist/mgcrypt-mac ./main.go
 	
 windows:
-	GOOS=windows GOARCH=386 go build -o ./dist/windows/mgcrypt.exe -ldflags="-X main.version=${VERSION}" ./main.go
+	GOOS=windows GOARCH=386 go build -o ./dist/mgcrypt-windows.exe ./main.go
 
 clean:
 	rm -rf ./dist
 
-all: linux mac windows
+zip:
+	zip -r release.zip dist/*
+
+all: linux mac windows zip
